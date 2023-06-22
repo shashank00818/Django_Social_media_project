@@ -1,0 +1,4 @@
+*.pyc
+project_environ
+db.sqlite3
+.env 
