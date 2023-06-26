@@ -3,6 +3,10 @@ from django.contrib.auth.models import auth
 from media_app.models import User
 from django.contrib.auth.decorators import login_required
 
+def index(request):
+    page_name="index.html"
+    return render(request, page_name)
+
 def sign_up(request):
     page_name='sign_up.html'
     if request.method=="POST":
