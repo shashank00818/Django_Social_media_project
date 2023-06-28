@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Welcome {{username }}</h1>
-  <h2>Email {{email}}
+<h1>Welcome {{request.user.username }}</h1>
+<h2>Email {{request.user.email}}
+<h3>congratulations you have made {x} posts</h3>
+<h3>congratulations you have received {y} likes</h3>
+<h3>congratulations you have made {z} likes</h3>
 {% endblock %}
