@@ -24,10 +24,13 @@
         </blockquote>
         <br>
         {% if request.user.id != post.user.id %}
-        <a href="#" class="btn btn-primary">Like</a>
+        <form action={% url 'like_post' post.id %} method="GET">
+            <button type="submit" class="btn btn-primary">Like</button>
+          </form>
         {% endif %}
         Nof of Likes : {{post.like_post.count}}
     </div>
-</div>
-{% endfor %}
+    </div>
+    {% endfor %}
+    {% endif %}
 {% endblock %}
