@@ -25,7 +25,11 @@
         <br>
         {% if request.user.id != post.user.id %}
         <form action={% url 'like_post' post.id %} method="GET">
-            <button type="submit" class="btn btn-primary">Like</button>
+            {% if post.id in  already_liked_post_ids_of_current_user  %}
+          Already Liked !
+        {% else %}
+          <button type="submit" class="btn btn-primary">Like</button>
+        {% endif %}
           </form>
         {% endif %}
         Nof of Likes : {{post.like_post.count}}
