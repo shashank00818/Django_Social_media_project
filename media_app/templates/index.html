@@ -10,7 +10,7 @@
         <textarea class="form-control" placeholder="Leave a caption here"
             id="floatingTextarea2" style="height: 100px" name="caption"></textarea>
         <label for="floatingTextarea2">Add your caption</label>
-        <input type="file" name="image_upload">
+        <input type="file" name="image_upload" accept=".jpg,.png,.jpeg" >
         <button type="submit" class="btn btn-primary">Post</button>
     </div>
 </form>
@@ -20,7 +20,10 @@
     <div class="card-body">
         <p class="card-text">{{post.caption}}</p>
         {% if post.image and post.image.url  %}
-        <img src={{post.image.url}} />
+        <img src={{post.image.url}} style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        width: 16rem;
+        height: 19rem;" />
       {% endif %}
         <br>
         <blockquote class="blockquote mb-0">
