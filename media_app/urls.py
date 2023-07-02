@@ -1,6 +1,7 @@
 from django.urls import path
 from media_app import views
 
+
 urlpatterns = [
     path('', views.index, name='index'),
     path('signup/', views.sign_up, name='sign_up'),

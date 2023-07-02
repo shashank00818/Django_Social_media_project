@@ -8,8 +8,8 @@ def index(request):
     user = request.user
     page_name="index.html"
     data = {
-        "post_list" : Post.objects.all().order_by('-created_at'),
-        "already_liked_post_ids_of_current_user": user.like_post.values_list('post_id', flat=True)
+        "post_list" : Post.objects.all().order_by('-created_at') if user.is_authenticated else [],
+        "already_liked_post_ids_of_current_user": user.like_post.values_list('post_id', flat=True) if user.is_authenticated else []
     }
     return render(request, page_name, data)
 
@@ -72,7 +72,8 @@ def profile_settings(request):
 def add_post(request):
     user = request.user
     caption = request.POST['caption']
-    Post.objects.create(user=user, caption=caption)
+    image = request.FILES['image_upload']
+    Post.objects.create(user=user, caption=caption, image=image)
     return redirect('index')
 
 @login_required(login_url='sign_in')
