@@ -43,12 +43,11 @@ def sign_in(request):
         username=request.POST["username"]
         password=request.POST["password"]
         user=auth.authenticate(username=username, password=password)
-
-        if user:
+        if user and user.is_active:
             auth.login(request, user)
             return redirect('index')
         else:
-            return render(request, page_name, {"error":True,"error_msg":"Some error"})
+            return render(request, page_name, {"error": True, "error_msg": "You have been blocked"})
     else:
         return render(request, page_name)
 
@@ -85,3 +84,34 @@ def like_post(request, post_id):
         user_id=user.id
     )
     return redirect('index')
+
+@login_required(login_url='sign_in')
+def admin_dashboard(request):
+    page_name="admin_dashboard.html"
+    user = request.user
+    if user.is_superuser:
+        data = {
+            "all_users" : User.objects.all()
+        }
+        return render(request, page_name, data)
+    else:
+        data = {
+            "error" : True,
+            "error_msg": "You dont have access to this page"
+        }
+        return render(request, page_name, data)
+
+@login_required(login_url='sign_in')
+def block_user(request, user_id):
+    user = User.objects.get(id=user_id)
+    user.is_active = False
+    user.save()
+    return redirect('admin_dashboard')
+
+
+@login_required(login_url='sign_in')
+def make_admin(request, user_id):
+    user = User.objects.get(id=user_id)
+    user.is_superuser = True
+    user.save()
+    return redirect('admin_dashboard')
