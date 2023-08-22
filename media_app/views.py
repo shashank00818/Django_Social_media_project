@@ -38,8 +38,8 @@ def sign_up(request):
         return render(request, page_name)
 
 def sign_in(request):
+    page_name='sign_in.html'
     if request.method=="POST":
-        page_name='sign_in.html'
         username=request.POST["username"]
         password=request.POST["password"]
         user=auth.authenticate(username=username, password=password)
@@ -54,7 +54,7 @@ def sign_in(request):
 @login_required(login_url='sign_in')
 def sign_out(request):
     auth.logout(request)
-    return redirect('sign_up')
+    return redirect('sign_in')
 
 @login_required(login_url='sign_in')
 def profile_settings(request):
